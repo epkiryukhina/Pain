@@ -1,0 +1,669 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="PersonSet" EntityType="Model1.Store.PersonSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="VisitSet" EntityType="Model1.Store.VisitSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ServiceSet" EntityType="Model1.Store.ServiceSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TypeOfRoomSet" EntityType="Model1.Store.TypeOfRoomSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RoomSet" EntityType="Model1.Store.RoomSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JobSet" EntityType="Model1.Store.JobSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TypeOfServiceSet" EntityType="Model1.Store.TypeOfServiceSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TypeOfPriceSet" EntityType="Model1.Store.TypeOfPriceSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PersonSet_Client" EntityType="Model1.Store.PersonSet_Client" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PersonSet_Employee" EntityType="Model1.Store.PersonSet_Employee" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ClientService" EntityType="Model1.Store.ClientService" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EmployeeTypeOfService" EntityType="Model1.Store.EmployeeTypeOfService" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ClientVisit" Association="Model1.Store.ClientVisit">
+      <End Role="Client" EntitySet="PersonSet_Client" />
+      <End Role="Visit" EntitySet="VisitSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientService_Client" Association="Model1.Store.FK_ClientService_Client">
+      <End Role="Client" EntitySet="PersonSet_Client" />
+      <End Role="ClientService" EntitySet="ClientService" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientService_Service" Association="Model1.Store.FK_ClientService_Service">
+      <End Role="Service" EntitySet="ServiceSet" />
+      <End Role="ClientService" EntitySet="ClientService" />
+    </AssociationSet>
+    <AssociationSet Name="EmployeeJob" Association="Model1.Store.EmployeeJob">
+      <End Role="Employee" EntitySet="PersonSet_Employee" />
+      <End Role="Job" EntitySet="JobSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeTypeOfService_Employee" Association="Model1.Store.FK_EmployeeTypeOfService_Employee">
+      <End Role="Employee" EntitySet="PersonSet_Employee" />
+      <End Role="EmployeeTypeOfService" EntitySet="EmployeeTypeOfService" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeTypeOfService_TypeOfService" Association="Model1.Store.FK_EmployeeTypeOfService_TypeOfService">
+      <End Role="TypeOfService" EntitySet="TypeOfServiceSet" />
+      <End Role="EmployeeTypeOfService" EntitySet="EmployeeTypeOfService" />
+    </AssociationSet>
+    <AssociationSet Name="RoomVisit" Association="Model1.Store.RoomVisit">
+      <End Role="Room" EntitySet="RoomSet" />
+      <End Role="Visit" EntitySet="VisitSet" />
+    </AssociationSet>
+    <AssociationSet Name="ServiceTypeOfService" Association="Model1.Store.ServiceTypeOfService">
+      <End Role="Service" EntitySet="ServiceSet" />
+      <End Role="TypeOfService" EntitySet="TypeOfServiceSet" />
+    </AssociationSet>
+    <AssociationSet Name="RoomTypeOfRoom" Association="Model1.Store.RoomTypeOfRoom">
+      <End Role="Room" EntitySet="RoomSet" />
+      <End Role="TypeOfRoom" EntitySet="TypeOfRoomSet" />
+    </AssociationSet>
+    <AssociationSet Name="TypeOfServiceTypeOfPrice" Association="Model1.Store.TypeOfServiceTypeOfPrice">
+      <End Role="TypeOfService" EntitySet="TypeOfServiceSet" />
+      <End Role="TypeOfPrice" EntitySet="TypeOfPriceSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Client_inherits_Person" Association="Model1.Store.FK_Client_inherits_Person">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="Client" EntitySet="PersonSet_Client" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_inherits_Person" Association="Model1.Store.FK_Employee_inherits_Person">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="Employee" EntitySet="PersonSet_Employee" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="PersonSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateBirth" Type="datetime" Nullable="false" />
+    <Property Name="Sex" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Passport" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VisitSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstDate" Type="datetime" Nullable="false" />
+    <Property Name="SecondDate" Type="datetime" Nullable="false" />
+    <Property Name="RoomId" Type="int" Nullable="false" />
+    <Property Name="Client_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ServiceSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="NumberOfPeople" Type="int" Nullable="false" />
+    <Property Name="NumberOfHours" Type="int" Nullable="false" />
+    <Property Name="VisitId" Type="int" Nullable="false" />
+    <Property Name="ClientId" Type="int" Nullable="false" />
+    <Property Name="TypeOfService_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TypeOfRoomSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Capacity" Type="int" Nullable="false" />
+    <Property Name="Price" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RoomSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Number" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TypeOfRoom_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JobSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TypeOfServiceSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Price" Type="int" Nullable="false" />
+    <Property Name="TypeOfPrice_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TypeOfPriceSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PersonSet_Client">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Debt" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PersonSet_Employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Job_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ClientService">
+    <Key>
+      <PropertyRef Name="Client_Id" />
+      <PropertyRef Name="Service_Id" />
+    </Key>
+    <Property Name="Client_Id" Type="int" Nullable="false" />
+    <Property Name="Service_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmployeeTypeOfService">
+    <Key>
+      <PropertyRef Name="Employee_Id" />
+      <PropertyRef Name="TypeOfService_Id" />
+    </Key>
+    <Property Name="Employee_Id" Type="int" Nullable="false" />
+    <Property Name="TypeOfService_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ClientVisit">
+    <End Role="Client" Type="Model1.Store.PersonSet_Client" Multiplicity="1" />
+    <End Role="Visit" Type="Model1.Store.VisitSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Visit">
+        <PropertyRef Name="Client_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EmployeeJob">
+    <End Role="Employee" Type="Model1.Store.PersonSet_Employee" Multiplicity="*" />
+    <End Role="Job" Type="Model1.Store.JobSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="Job_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RoomVisit">
+    <End Role="Room" Type="Model1.Store.RoomSet" Multiplicity="1" />
+    <End Role="Visit" Type="Model1.Store.VisitSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Visit">
+        <PropertyRef Name="RoomId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ServiceTypeOfService">
+    <End Role="Service" Type="Model1.Store.ServiceSet" Multiplicity="*" />
+    <End Role="TypeOfService" Type="Model1.Store.TypeOfServiceSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="TypeOfService">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Service">
+        <PropertyRef Name="TypeOfService_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RoomTypeOfRoom">
+    <End Role="Room" Type="Model1.Store.RoomSet" Multiplicity="*" />
+    <End Role="TypeOfRoom" Type="Model1.Store.TypeOfRoomSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="TypeOfRoom">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Room">
+        <PropertyRef Name="TypeOfRoom_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TypeOfServiceTypeOfPrice">
+    <End Role="TypeOfService" Type="Model1.Store.TypeOfServiceSet" Multiplicity="*" />
+    <End Role="TypeOfPrice" Type="Model1.Store.TypeOfPriceSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="TypeOfPrice">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TypeOfService">
+        <PropertyRef Name="TypeOfPrice_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientService_Client">
+    <End Role="Client" Type="Model1.Store.PersonSet_Client" Multiplicity="1" />
+    <End Role="ClientService" Type="Model1.Store.ClientService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ClientService">
+        <PropertyRef Name="Client_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientService_Service">
+    <End Role="ClientService" Type="Model1.Store.ClientService" Multiplicity="*" />
+    <End Role="Service" Type="Model1.Store.ServiceSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ClientService">
+        <PropertyRef Name="Service_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeTypeOfService_Employee">
+    <End Role="Employee" Type="Model1.Store.PersonSet_Employee" Multiplicity="1" />
+    <End Role="EmployeeTypeOfService" Type="Model1.Store.EmployeeTypeOfService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EmployeeTypeOfService">
+        <PropertyRef Name="Employee_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeTypeOfService_TypeOfService">
+    <End Role="EmployeeTypeOfService" Type="Model1.Store.EmployeeTypeOfService" Multiplicity="*" />
+    <End Role="TypeOfService" Type="Model1.Store.TypeOfServiceSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="TypeOfService">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EmployeeTypeOfService">
+        <PropertyRef Name="TypeOfService_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Client_inherits_Person">
+    <End Role="Person" Type="Model1.Store.PersonSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Client" Type="Model1.Store.PersonSet_Client" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Client">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_inherits_Person">
+    <End Role="Person" Type="Model1.Store.PersonSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Employee" Type="Model1.Store.PersonSet_Employee" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PersonSet" EntityType="Model1.Person" />
+          <EntitySet Name="VisitSet" EntityType="Model1.Visit" />
+          <EntitySet Name="ServiceSet" EntityType="Model1.Service" />
+          <EntitySet Name="TypeOfRoomSet" EntityType="Model1.TypeOfRoom" />
+          <EntitySet Name="RoomSet" EntityType="Model1.Room" />
+          <EntitySet Name="JobSet" EntityType="Model1.Job" />
+          <EntitySet Name="TypeOfServiceSet" EntityType="Model1.TypeOfService" />
+          <EntitySet Name="TypeOfPriceSet" EntityType="Model1.TypeOfPrice" />
+          <AssociationSet Name="ClientVisit" Association="Model1.ClientVisit">
+            <End Role="Client" EntitySet="PersonSet" />
+            <End Role="Visit" EntitySet="VisitSet" />
+          </AssociationSet>
+          <AssociationSet Name="ClientService" Association="Model1.ClientService">
+            <End Role="Client" EntitySet="PersonSet" />
+            <End Role="Service" EntitySet="ServiceSet" />
+          </AssociationSet>
+          <AssociationSet Name="EmployeeJob" Association="Model1.EmployeeJob">
+            <End Role="Employee" EntitySet="PersonSet" />
+            <End Role="Job" EntitySet="JobSet" />
+          </AssociationSet>
+          <AssociationSet Name="EmployeeTypeOfService" Association="Model1.EmployeeTypeOfService">
+            <End Role="Employee" EntitySet="PersonSet" />
+            <End Role="TypeOfService" EntitySet="TypeOfServiceSet" />
+          </AssociationSet>
+          <AssociationSet Name="RoomVisit" Association="Model1.RoomVisit">
+            <End Role="Room" EntitySet="RoomSet" />
+            <End Role="Visit" EntitySet="VisitSet" />
+          </AssociationSet>
+          <AssociationSet Name="ServiceTypeOfService" Association="Model1.ServiceTypeOfService">
+            <End Role="Service" EntitySet="ServiceSet" />
+            <End Role="TypeOfService" EntitySet="TypeOfServiceSet" />
+          </AssociationSet>
+          <AssociationSet Name="RoomTypeOfRoom" Association="Model1.RoomTypeOfRoom">
+            <End Role="Room" EntitySet="RoomSet" />
+            <End Role="TypeOfRoom" EntitySet="TypeOfRoomSet" />
+          </AssociationSet>
+          <AssociationSet Name="TypeOfServiceTypeOfPrice" Association="Model1.TypeOfServiceTypeOfPrice">
+            <End Role="TypeOfService" EntitySet="TypeOfServiceSet" />
+            <End Role="TypeOfPrice" EntitySet="TypeOfPriceSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="DateBirth" Type="DateTime" Nullable="false" />
+          <Property Name="Sex" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <Property Name="Passport" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client" BaseType="Model1.Person">
+          <Property Name="Debt" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Visit" Relationship="Model1.ClientVisit" FromRole="Client" ToRole="Visit" />
+          <NavigationProperty Name="Service" Relationship="Model1.ClientService" FromRole="Client" ToRole="Service" />
+        </EntityType>
+        <EntityType Name="Employee" BaseType="Model1.Person">
+          <NavigationProperty Name="Job" Relationship="Model1.EmployeeJob" FromRole="Employee" ToRole="Job" />
+          <NavigationProperty Name="TypeOfService" Relationship="Model1.EmployeeTypeOfService" FromRole="Employee" ToRole="TypeOfService" />
+        </EntityType>
+        <EntityType Name="Visit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstDate" Type="DateTime" Nullable="false" />
+          <Property Name="SecondDate" Type="DateTime" Nullable="false" />
+          <Property Name="RoomId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Model1.ClientVisit" FromRole="Visit" ToRole="Client" />
+          <NavigationProperty Name="Room" Relationship="Model1.RoomVisit" FromRole="Visit" ToRole="Room" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="NumberOfPeople" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfHours" Type="Int32" Nullable="false" />
+          <Property Name="VisitId" Type="Int32" Nullable="false" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Model1.ClientService" FromRole="Service" ToRole="Client" />
+          <NavigationProperty Name="TypeOfService" Relationship="Model1.ServiceTypeOfService" FromRole="Service" ToRole="TypeOfService" />
+        </EntityType>
+        <EntityType Name="TypeOfRoom">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" Nullable="false" />
+          <Property Name="Capacity" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Room" Relationship="Model1.RoomTypeOfRoom" FromRole="TypeOfRoom" ToRole="Room" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="String" Nullable="false" />
+          <NavigationProperty Name="Visit" Relationship="Model1.RoomVisit" FromRole="Room" ToRole="Visit" />
+          <NavigationProperty Name="TypeOfRoom" Relationship="Model1.RoomTypeOfRoom" FromRole="Room" ToRole="TypeOfRoom" />
+        </EntityType>
+        <EntityType Name="Job">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Model1.EmployeeJob" FromRole="Job" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="TypeOfService">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Model1.EmployeeTypeOfService" FromRole="TypeOfService" ToRole="Employee" />
+          <NavigationProperty Name="Service" Relationship="Model1.ServiceTypeOfService" FromRole="TypeOfService" ToRole="Service" />
+          <NavigationProperty Name="TypeOfPrice" Relationship="Model1.TypeOfServiceTypeOfPrice" FromRole="TypeOfService" ToRole="TypeOfPrice" />
+        </EntityType>
+        <EntityType Name="TypeOfPrice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" Nullable="false" />
+          <NavigationProperty Name="TypeOfService" Relationship="Model1.TypeOfServiceTypeOfPrice" FromRole="TypeOfPrice" ToRole="TypeOfService" />
+        </EntityType>
+        <Association Name="ClientVisit">
+          <End Type="Model1.Client" Role="Client" Multiplicity="1" />
+          <End Type="Model1.Visit" Role="Visit" Multiplicity="*" />
+        </Association>
+        <Association Name="ClientService">
+          <End Type="Model1.Client" Role="Client" Multiplicity="*" />
+          <End Type="Model1.Service" Role="Service" Multiplicity="*" />
+        </Association>
+        <Association Name="EmployeeJob">
+          <End Type="Model1.Employee" Role="Employee" Multiplicity="*" />
+          <End Type="Model1.Job" Role="Job" Multiplicity="1" />
+        </Association>
+        <Association Name="EmployeeTypeOfService">
+          <End Type="Model1.Employee" Role="Employee" Multiplicity="*" />
+          <End Type="Model1.TypeOfService" Role="TypeOfService" Multiplicity="*" />
+        </Association>
+        <Association Name="RoomVisit">
+          <End Type="Model1.Room" Role="Room" Multiplicity="1" />
+          <End Type="Model1.Visit" Role="Visit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Visit">
+              <PropertyRef Name="RoomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ServiceTypeOfService">
+          <End Type="Model1.Service" Role="Service" Multiplicity="*" />
+          <End Type="Model1.TypeOfService" Role="TypeOfService" Multiplicity="1" />
+        </Association>
+        <Association Name="RoomTypeOfRoom">
+          <End Type="Model1.Room" Role="Room" Multiplicity="*" />
+          <End Type="Model1.TypeOfRoom" Role="TypeOfRoom" Multiplicity="1" />
+        </Association>
+        <Association Name="TypeOfServiceTypeOfPrice">
+          <End Type="Model1.TypeOfService" Role="TypeOfService" Multiplicity="*" />
+          <End Type="Model1.TypeOfPrice" Role="TypeOfPrice" Multiplicity="1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="PersonSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Person)">
+        <MappingFragment StoreEntitySet="PersonSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DateBirth" ColumnName="DateBirth" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Passport" ColumnName="Passport" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Client)">
+        <MappingFragment StoreEntitySet="PersonSet_Client">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Debt" ColumnName="Debt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Employee)">
+        <MappingFragment StoreEntitySet="PersonSet_Employee">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VisitSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Visit)">
+        <MappingFragment StoreEntitySet="VisitSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstDate" ColumnName="FirstDate" />
+          <ScalarProperty Name="SecondDate" ColumnName="SecondDate" />
+          <ScalarProperty Name="RoomId" ColumnName="RoomId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiceSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Service)">
+        <MappingFragment StoreEntitySet="ServiceSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="NumberOfPeople" ColumnName="NumberOfPeople" />
+          <ScalarProperty Name="NumberOfHours" ColumnName="NumberOfHours" />
+          <ScalarProperty Name="VisitId" ColumnName="VisitId" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypeOfRoomSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.TypeOfRoom)">
+        <MappingFragment StoreEntitySet="TypeOfRoomSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RoomSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Room)">
+        <MappingFragment StoreEntitySet="RoomSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Job)">
+        <MappingFragment StoreEntitySet="JobSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypeOfServiceSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.TypeOfService)">
+        <MappingFragment StoreEntitySet="TypeOfServiceSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypeOfPriceSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.TypeOfPrice)">
+        <MappingFragment StoreEntitySet="TypeOfPriceSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ClientVisit" TypeName="Model1.ClientVisit" StoreEntitySet="VisitSet">
+      <EndProperty Name="Client">
+        <ScalarProperty Name="Id" ColumnName="Client_Id" />
+      </EndProperty>
+      <EndProperty Name="Visit">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ClientService" TypeName="Model1.ClientService" StoreEntitySet="ClientService">
+      <EndProperty Name="Client">
+        <ScalarProperty Name="Id" ColumnName="Client_Id" />
+      </EndProperty>
+      <EndProperty Name="Service">
+        <ScalarProperty Name="Id" ColumnName="Service_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="EmployeeJob" TypeName="Model1.EmployeeJob" StoreEntitySet="PersonSet_Employee">
+      <EndProperty Name="Job">
+        <ScalarProperty Name="Id" ColumnName="Job_Id" />
+      </EndProperty>
+      <EndProperty Name="Employee">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="EmployeeTypeOfService" TypeName="Model1.EmployeeTypeOfService" StoreEntitySet="EmployeeTypeOfService">
+      <EndProperty Name="Employee">
+        <ScalarProperty Name="Id" ColumnName="Employee_Id" />
+      </EndProperty>
+      <EndProperty Name="TypeOfService">
+        <ScalarProperty Name="Id" ColumnName="TypeOfService_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ServiceTypeOfService" TypeName="Model1.ServiceTypeOfService" StoreEntitySet="ServiceSet">
+      <EndProperty Name="TypeOfService">
+        <ScalarProperty Name="Id" ColumnName="TypeOfService_Id" />
+      </EndProperty>
+      <EndProperty Name="Service">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RoomTypeOfRoom" TypeName="Model1.RoomTypeOfRoom" StoreEntitySet="RoomSet">
+      <EndProperty Name="TypeOfRoom">
+        <ScalarProperty Name="Id" ColumnName="TypeOfRoom_Id" />
+      </EndProperty>
+      <EndProperty Name="Room">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TypeOfServiceTypeOfPrice" TypeName="Model1.TypeOfServiceTypeOfPrice" StoreEntitySet="TypeOfServiceSet">
+      <EndProperty Name="TypeOfPrice">
+        <ScalarProperty Name="Id" ColumnName="TypeOfPrice_Id" />
+      </EndProperty>
+      <EndProperty Name="TypeOfService">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
